@@ -1,0 +1,35 @@
+.experiments {
+  position: relative;
+  min-height: 150vh; /* Extra scroll height for physics playground */
+  padding-top: var(--space-32);
+  pointer-events: none; /* Let pointer events pass through to WebGL canvas below */
+}
+
+.container {
+  position: sticky;
+  top: 30vh;
+  z-index: 10;
+}
+
+.content {
+  max-width: 500px;
+  color: var(--text-primary);
+  /* But allow pointer events on text so users can select it if they want, 
+     though for a physics playground it's better to keep pointer-events: none on the whole container */
+}
+
+.heading {
+  margin-bottom: var(--space-8);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: var(--tracking-tighter);
+}
+
+.text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.playgroundSpacer {
+  height: 100vh;
+}

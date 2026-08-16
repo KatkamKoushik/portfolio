@@ -1,0 +1,90 @@
+.caseStudy {
+  position: relative;
+  z-index: 10;
+  color: var(--text-primary);
+  max-width: 800px;
+}
+
+.hero {
+  margin-bottom: var(--space-24);
+  padding-top: var(--space-12);
+}
+
+.meta {
+  display: flex;
+  gap: var(--space-4);
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  margin-bottom: var(--space-6);
+}
+
+.role {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.section {
+  margin-bottom: var(--space-20);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  margin-bottom: var(--space-6);
+  color: var(--text-primary);
+}
+
+.bodyText {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.techGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.techTag {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--bg-primary);
+  background: var(--text-primary);
+  border-radius: var(--radius-full);
+}
+
+.links {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.linkButton {
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  border-radius: var(--radius-full);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.linkButton:hover {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+}

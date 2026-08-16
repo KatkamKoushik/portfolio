@@ -1,0 +1,180 @@
+.work {
+  position: relative;
+}
+
+.header {
+  margin-bottom: var(--space-20);
+}
+
+.sectionLabel {
+  display: block;
+  color: var(--accent);
+  margin-bottom: var(--space-4);
+}
+
+.sectionTitle {
+  color: var(--text-primary);
+}
+
+/* === GRID === */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* === CARD === */
+.card {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-20) 0;
+  cursor: pointer;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.card:hover {
+  /* opacity handled by GSAP now */
+}
+
+/* === CARD BACKGROUND === */
+.cardBackground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 0.05;
+  transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+  transform: scale(0.95);
+}
+
+.card:hover .cardBackground {
+  opacity: 0.4;
+  transform: scale(1);
+}
+
+.cardNumber {
+  font-family: var(--font-display);
+  font-size: 40vw; /* Massive */
+  font-weight: var(--weight-black);
+  color: var(--project-color);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  margin-right: -5vw;
+}
+
+/* === CARD CONTENT === */
+.cardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+  max-width: 600px;
+  margin-left: 10vw; /* Asymmetric offset */
+}
+
+.cardMeta {
+  display: flex;
+  gap: var(--space-4);
+  color: var(--text-muted);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  transition: color var(--duration-normal) var(--ease-out);
+}
+
+.card:hover .cardTitle {
+  color: var(--project-color);
+}
+
+.cardDescription {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 48ch;
+}
+
+.cardTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.techTag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  transition: color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.card:hover .techTag {
+  color: var(--text-secondary);
+  border-color: var(--text-muted);
+}
+
+.cardLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--project-color);
+  transition: width 0.6s var(--ease-out);
+}
+
+.card:hover .cardLine {
+  width: 100%;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 767px) {
+  .card {
+    min-height: 50vh;
+    padding: var(--space-10) 0;
+  }
+
+  .cardContent {
+    margin-left: 0;
+  }
+
+  .cardNumber {
+    font-size: 60vw;
+    margin-right: -10vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .cardContent {
+    margin-left: 5vw;
+  }
+}
