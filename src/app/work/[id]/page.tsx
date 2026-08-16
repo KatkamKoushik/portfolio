@@ -61,19 +61,60 @@ export default async function ProjectPage({
         </header>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>The Challenge</h2>
+          <h2 className={styles.sectionTitle}>Problem</h2>
           <p className={styles.bodyText}>{project.challenge}</p>
         </section>
 
+        {project.research && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Research</h2>
+            <p className={styles.bodyText}>{project.research}</p>
+          </section>
+        )}
+
+        {project.experiment && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Experiment</h2>
+            <p className={styles.bodyText}>{project.experiment}</p>
+          </section>
+        )}
+
+        {project.failure && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Failure</h2>
+            <p className={styles.bodyText}>{project.failure}</p>
+          </section>
+        )}
+
+        {project.breakthrough && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Breakthrough</h2>
+            <p className={styles.bodyText}>{project.breakthrough}</p>
+          </section>
+        )}
+
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>The Solution</h2>
+          <h2 className={styles.sectionTitle}>Solution</h2>
           <p className={styles.bodyText}>{project.solution}</p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Outcomes</h2>
+          <h2 className={styles.sectionTitle}>Result</h2>
           <p className={styles.bodyText}>{project.outcome}</p>
         </section>
+
+        {project.metrics && project.metrics.length > 0 && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Impact Signals</h2>
+            <ul className={styles.techGrid}>
+              {project.metrics.map((metric) => (
+                <li key={metric} className={styles.techTag}>
+                  {metric}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Technologies</h2>

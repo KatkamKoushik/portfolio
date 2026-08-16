@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, EASE, DURATION } from "@/animation/gsap/config";
+import { gsap, EASE, DURATION } from "@/animation/gsap/config";
 import { useInteractionStore } from "@/state/interactionStore";
 import { useProjectStore } from "@/state/projectStore";
 import { useVisualStore } from "@/state/visualStore";

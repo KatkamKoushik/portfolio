@@ -17,7 +17,6 @@ export default function HeroLighting() {
   // Colors for each world
   const brutalistColor = useRef(new THREE.Color("#ffffff"));
   const luxuryColor = useRef(new THREE.Color("#c9a96e"));
-  const luxuryAmbient = useRef(new THREE.Color("#2e1f0a"));
   const futureColor1 = useRef(new THREE.Color("#00f0ff"));
   const futureColor2 = useRef(new THREE.Color("#8b5cf6"));
 

@@ -2,8 +2,13 @@
 
 import { useMemo } from "react";
 import * as THREE from "three";
-import { InstancedRigidBodies, RapierRigidBody } from "@react-three/rapier";
+import { InstancedRigidBodies } from "@react-three/rapier";
 import { useVisualStore } from "@/state/visualStore";
+
+function pseudoRandom(seed: number) {
+  const x = Math.sin(seed * 12.9898) * 43758.5453123;
+  return x - Math.floor(x);
+}
 
 export default function RigidObjects() {
   const qualityLevel = useVisualStore((s) => s.qualityLevel);
@@ -17,24 +22,33 @@ export default function RigidObjects() {
     const colors = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-      const scale = 0.5 + Math.random() * 1.5;
+      const rand1 = pseudoRandom(i * 17 + 1);
+      const rand2 = pseudoRandom(i * 17 + 2);
+      const rand3 = pseudoRandom(i * 17 + 3);
+      const rand4 = pseudoRandom(i * 17 + 4);
+      const rand5 = pseudoRandom(i * 17 + 5);
+      const rand6 = pseudoRandom(i * 17 + 6);
+      const rand7 = pseudoRandom(i * 17 + 7);
+      const rand8 = pseudoRandom(i * 17 + 8);
+      const scale = 0.5 + rand1 * 1.5;
       
       arr.push({
         key: `instance_${i}`,
         position: [
-          (Math.random() - 0.5) * 10,
-          Math.random() * 10 + 5,
-          (Math.random() - 0.5) * 10,
+          (rand2 - 0.5) * 10,
+          rand3 * 10 + 5,
+          (rand4 - 0.5) * 10,
         ] as [number, number, number],
         rotation: [
-          Math.random() * Math.PI,
-          Math.random() * Math.PI,
-          Math.random() * Math.PI,
+          rand5 * Math.PI,
+          rand6 * Math.PI,
+          rand7 * Math.PI,
         ] as [number, number, number],
         scale: [scale, scale, scale] as [number, number, number]
       });
       
-      const c = new THREE.Color(colorPalette[Math.floor(Math.random() * colorPalette.length)]);
+      const colorIndex = Math.floor(rand8 * colorPalette.length);
+      const c = new THREE.Color(colorPalette[colorIndex]);
       c.toArray(colors, i * 3);
     }
 

@@ -11,10 +11,11 @@ export function useAdaptiveQuality() {
   const setQualityLevel = useVisualStore((s) => s.setQualityLevel);
   const setIsMobile = useVisualStore((s) => s.setIsMobile);
   const frameTimesRef = useRef<number[]>([]);
-  const lastFrameRef = useRef(performance.now());
+  const lastFrameRef = useRef(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    lastFrameRef.current = performance.now();
 
     // Device detection
     const isMobile =
@@ -37,7 +38,19 @@ export function useAdaptiveQuality() {
 
     // FPS monitoring — downgrade if consistently below 30fps
     let rafId: number;
-    let checkInterval: ReturnType<typeof setInterval>;
+    const checkInterval: ReturnType<typeof setInterval> = setInterval(() => {
+      const times = frameTimesRef.current;
+      if (times.length < 30) return;
+
+      const avgDelta = times.reduce((a, b) => a + b, 0) / times.length;
+      const avgFPS = 1000 / avgDelta;
+
+      if (avgFPS < 24) {
+        setQualityLevel("low");
+      } else if (avgFPS < 45) {
+        setQualityLevel("medium");
+      }
+    }, 3000);
 
     const measureFrame = (now: number) => {
       const delta = now - lastFrameRef.current;
@@ -52,21 +65,6 @@ export function useAdaptiveQuality() {
     };
 
     rafId = requestAnimationFrame(measureFrame);
-
-    // Check every 3 seconds
-    checkInterval = setInterval(() => {
-      const times = frameTimesRef.current;
-      if (times.length < 30) return;
-
-      const avgDelta = times.reduce((a, b) => a + b, 0) / times.length;
-      const avgFPS = 1000 / avgDelta;
-
-      if (avgFPS < 24) {
-        setQualityLevel("low");
-      } else if (avgFPS < 45) {
-        setQualityLevel("medium");
-      }
-    }, 3000);
 
     return () => {
       cancelAnimationFrame(rafId);

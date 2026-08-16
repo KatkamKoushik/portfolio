@@ -37,6 +37,14 @@
   text-transform: uppercase;
 }
 
+.manifesto {
+  max-width: 46ch;
+  margin-bottom: var(--space-8);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 /* === SUBTITLE === */
 .subtitleWrapper {
   position: absolute;
@@ -50,6 +58,7 @@
 .subtitle {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
@@ -101,6 +110,12 @@
 
 /* === RESPONSIVE === */
 @media (max-width: 767px) {
+  .manifesto {
+    margin-bottom: var(--space-6);
+    max-width: 32ch;
+    font-size: var(--text-sm);
+  }
+
   .subtitleWrapper {
     top: 20vh;
     right: var(--space-6);

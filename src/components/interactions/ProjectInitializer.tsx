@@ -5,7 +5,6 @@ import { useProjectStore } from "@/state/projectStore";
 
 export default function ProjectInitializer({ projectId }: { projectId: string }) {
   const setActiveProject = useProjectStore((s) => s.setActiveProject);
-  const setTransitionState = useProjectStore((s) => s.setTransitionState);
   
   useEffect(() => {
     // Wait a frame so the FLIP expansion animation doesn't get interrupted if we just navigated here

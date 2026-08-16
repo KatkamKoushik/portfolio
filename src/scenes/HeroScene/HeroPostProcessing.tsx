@@ -6,8 +6,11 @@ import {
   Noise,
   ChromaticAberration,
 } from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
-import { Vector2 } from "three";
+import {
+  BlendFunction,
+  type BloomEffect,
+  type ChromaticAberrationEffect,
+} from "postprocessing";
 import { useVisualStore } from "@/state/visualStore";
 import { useInteractionStore } from "@/state/interactionStore";
 
@@ -16,8 +19,8 @@ export default function HeroPostProcessing() {
   const themeProgress = useVisualStore((s) => s.themeProgress);
   const pointerVelocity = useInteractionStore((s) => s.pointerVelocity);
 
-  const chromaticRef = useRef<any>(null);
-  const bloomRef = useRef<any>(null);
+  const chromaticRef = useRef<ChromaticAberrationEffect | null>(null);
+  const bloomRef = useRef<BloomEffect | null>(null);
 
   useFrame((_, delta) => {
     // 1. Map themeProgress (0 to 2) to Bloom intensity/threshold
@@ -26,26 +29,20 @@ export default function HeroPostProcessing() {
     // Future (1.6 - 2.0): high bloom, neon glow
     if (bloomRef.current) {
       let targetIntensity = 0.5;
-      let targetThreshold = 0.8;
 
       if (themeProgress > 1.6) {
         // Future
         targetIntensity = 2.0;
-        targetThreshold = 0.2;
       } else if (themeProgress > 0.8) {
         // Luxury
         targetIntensity = 1.0;
-        targetThreshold = 0.5;
       } else {
         // Brutalist
         targetIntensity = 0.3;
-        targetThreshold = 0.9;
       }
 
       bloomRef.current.intensity +=
         (targetIntensity - bloomRef.current.intensity) * delta * 2;
-      bloomRef.current.luminanceThreshold +=
-        (targetThreshold - bloomRef.current.luminanceThreshold) * delta * 2;
     }
 
     // 2. Map scroll velocity & pointer velocity to Chromatic Aberration

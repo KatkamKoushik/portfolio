@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useEffect, type ReactNode } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, EASE, DURATION, STAGGER } from "@/animation/gsap/config";
+import { gsap, EASE, DURATION } from "@/animation/gsap/config";
 import { useVisualStore } from "@/state/visualStore";
 import LuminousText from "@/components/ui/LuminousText";
 
@@ -106,9 +106,18 @@ export default function HeroSection() {
           </LuminousText>
         </div>
 
+        <p className={styles.manifesto}>
+          Creative technologist crafting cinematic systems where design, code, and
+          intelligence move as one.
+        </p>
+
         <div className={styles.subtitleWrapper}>
           <p ref={subtitleRef} className={styles.subtitle}>
-            <span className={styles.subtitleLine}>Data Science Student & Developer</span>
+            <span className={styles.subtitleLine}>Brutalist</span>
+            <span className={styles.subtitleDivider}>→</span>
+            <span className={styles.subtitleLine}>Luxury</span>
+            <span className={styles.subtitleDivider}>→</span>
+            <span className={styles.subtitleLine}>Future</span>
           </p>
         </div>
 
