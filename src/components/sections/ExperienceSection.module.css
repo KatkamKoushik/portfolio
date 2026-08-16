@@ -14,20 +14,28 @@
 
 .timeline {
   display: grid;
-  gap: var(--space-6);
+  gap: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .item {
   display: grid;
   grid-template-columns: minmax(90px, 120px) 1fr;
   gap: var(--space-6);
+  position: relative;
   border-top: 1px solid var(--border);
-  padding-top: var(--space-6);
+  padding: var(--space-8) var(--space-6);
+  transition: background var(--duration-normal) var(--ease-out), padding-left var(--duration-normal) var(--ease-out);
+}
+
+.item:hover {
+  background: var(--surface-glass);
+  padding-left: var(--space-10);
 }
 
 .year {
   font-family: var(--font-mono);
-  color: var(--text-muted);
+  color: var(--accent);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
 }

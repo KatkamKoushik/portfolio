@@ -43,10 +43,10 @@ body::after {
 }
 
 body::before {
-  opacity: 0.65;
+  opacity: 0.8;
   background:
-    radial-gradient(1200px 800px at 80% -10%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 65%),
-    radial-gradient(900px 700px at -20% 120%, color-mix(in oklab, var(--text-primary) 10%, transparent), transparent 70%);
+    radial-gradient(900px 680px at 96% -10%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 68%),
+    radial-gradient(700px 560px at -12% 76%, rgba(115, 82, 255, 0.16), transparent 70%);
 }
 
 body::after {
@@ -102,25 +102,25 @@ ol {
   --theme-progress: 0;
 
   /* === COLORS: BRUTALIST (default) === */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-elevated: #1a1a1a;
-  --text-primary: #fafafa;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
-  --accent: #e94d31;
-  --accent-hover: #ff6b4a;
-  --border: #2a2a2a;
-  --surface-glass: rgba(255, 255, 255, 0.04);
+  --bg-primary: #090909;
+  --bg-secondary: #101010;
+  --bg-elevated: #171717;
+  --text-primary: #f6f3ed;
+  --text-secondary: #b6b2aa;
+  --text-muted: #77736d;
+  --accent: #d8ff3e;
+  --accent-hover: #ecff93;
+  --border: rgba(246, 243, 237, 0.16);
+  --surface-glass: rgba(255, 255, 255, 0.055);
 
   /* === TYPOGRAPHY === */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
 
   /* Display scale */
   --text-hero: clamp(8rem, 25vw, 30rem);
-  --text-display: clamp(4rem, 10vw, 12rem);
+  --text-display: clamp(3.5rem, 9vw, 10rem);
   --text-h1: clamp(2.5rem, 6vw, 6rem);
   --text-h2: clamp(1.5rem, 4vw, 4rem);
   --text-h3: clamp(1.25rem, 2vw, 2rem);
@@ -386,6 +386,7 @@ ol {
 .content-layer {
   position: relative;
   z-index: 1;
+  overflow: clip;
 }
 
 /* ---------- CURSOR (desktop only) ---------- */

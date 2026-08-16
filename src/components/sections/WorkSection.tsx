@@ -109,6 +109,22 @@ export default function WorkSection() {
     router.push(`/work/${id}`);
   };
 
+  const handleProjectKeyDown = (
+    e: React.KeyboardEvent<HTMLElement>,
+    id: string
+  ) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    const rect = e.currentTarget.getBoundingClientRect();
+    openCaseStudy(id, {
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+    });
+    router.push(`/work/${id}`);
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -132,6 +148,10 @@ export default function WorkSection() {
               key={project.id}
               className={styles.card}
               onClick={(e) => handleProjectClick(e, project.id)}
+              onKeyDown={(e) => handleProjectKeyDown(e, project.id)}
+              tabIndex={0}
+              role="link"
+              aria-label={`View ${project.title} case study`}
               onMouseEnter={() => setCursorState("project", "View")}
               onMouseLeave={() => setCursorState("default")}
               style={

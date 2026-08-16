@@ -5,7 +5,7 @@
   right: 0;
   z-index: 100;
   height: var(--header-height);
-  background: transparent;
+  background: linear-gradient(to bottom, rgba(9, 9, 9, 0.84), rgba(9, 9, 9, 0));
   pointer-events: none; /* Let clicks pass through the empty space */
 }
 
@@ -20,12 +20,28 @@
   pointer-events: auto; /* Re-enable clicks for the actual content */
 }
 
+.inner::after {
+  content: "AVAILABLE FOR SELECTED PROJECTS";
+  position: absolute;
+  right: var(--section-padding-x);
+  bottom: 4px;
+  color: var(--accent);
+  font: 500 9px/1 var(--font-mono);
+  letter-spacing: 0.14em;
+}
+
 /* === LOGO === */
 .logo {
   font-family: var(--font-display);
   font-size: var(--text-h4);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
   color: var(--text-primary);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
@@ -66,7 +82,7 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 1px;
+  height: 2px;
   background: var(--accent);
   transition: width 0.3s var(--ease-out);
 }
@@ -109,14 +125,12 @@
 
 /* === RESPONSIVE === */
 @media (max-width: 767px) {
-  .menuToggle {
-    display: flex;
+  .inner::after {
+    display: none;
   }
 
-  @media (min-width: 768px) and (max-width: 1279px) {
-    .navList {
-      gap: var(--space-4);
-    }
+  .menuToggle {
+    display: flex;
   }
 
   .nav {
@@ -147,5 +161,11 @@
   .navLink {
     font-size: var(--text-h3);
     letter-spacing: var(--tracking-wide);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .navList {
+    gap: var(--space-4);
   }
 }

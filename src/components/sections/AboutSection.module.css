@@ -19,7 +19,7 @@
 }
 
 .intro .text-display {
-  max-width: 18ch;
+  max-width: 13ch;
 }
 
 .body {
@@ -35,11 +35,16 @@
   font-weight: var(--weight-light);
   line-height: 1.7;
   color: var(--text-secondary);
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-6);
 }
 
 /* === CAPABILITIES === */
 .capabilities {
   margin-top: var(--space-8);
+  padding: var(--space-8);
+  border: 1px solid var(--border);
+  background: var(--surface-glass);
 }
 
 .capabilities h3 {
@@ -57,16 +62,17 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  padding: var(--space-4) 0;
+  padding: var(--space-5) var(--space-3);
   border-top: 1px solid var(--border);
   font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--text-primary);
-  transition: color var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
 }
 
 .capItem:hover {
   color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .capIndex {

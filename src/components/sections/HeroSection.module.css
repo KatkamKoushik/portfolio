@@ -6,6 +6,28 @@
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
+  isolation: isolate;
+}
+
+.hero::before {
+  content: "01 — PORTFOLIO / 2026";
+  position: absolute;
+  top: calc(var(--header-height) + var(--space-8));
+  left: var(--section-padding-x);
+  z-index: 2;
+  color: var(--text-muted);
+  font: 500 var(--text-xs)/1 var(--font-mono);
+  letter-spacing: var(--tracking-wider);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 15% var(--section-padding-x) 11%;
+  z-index: 1;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  border-radius: 999px 999px 0 0;
+  pointer-events: none;
 }
 
 .content {
@@ -13,9 +35,9 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
-  padding: var(--space-20) var(--space-8);
+  padding: var(--space-20) var(--section-padding-x) 0;
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
@@ -24,23 +46,23 @@
 /* === NAME === */
 .nameWrapper {
   overflow: hidden;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
 .name {
   font-family: var(--font-display);
   font-size: var(--text-hero);
   font-weight: var(--weight-black);
-  line-height: 0.9;
-  letter-spacing: var(--tracking-tight);
-  color: var(--accent);
+  line-height: 0.77;
+  letter-spacing: -0.085em;
+  color: var(--text-primary);
   text-transform: uppercase;
 }
 
 .manifesto {
-  max-width: 46ch;
+  max-width: 42ch;
   margin-bottom: var(--space-8);
-  font-size: var(--text-base);
+  font-size: clamp(1rem, 1.25vw, 1.35rem);
   color: var(--text-secondary);
   line-height: 1.5;
 }
@@ -48,10 +70,11 @@
 /* === SUBTITLE === */
 .subtitleWrapper {
   position: absolute;
-  top: 30vh;
+  top: auto;
+  bottom: var(--space-12);
   right: var(--space-12);
   overflow: hidden;
-  max-width: 400px;
+  max-width: 320px;
   text-align: right;
 }
 
@@ -80,8 +103,9 @@
 /* === SCROLL INDICATOR === */
 .scrollIndicator {
   position: absolute;
-  bottom: var(--space-10);
-  right: var(--space-12);
+  top: calc(var(--header-height) + var(--space-10));
+  bottom: auto;
+  right: var(--section-padding-x);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,6 +134,7 @@
 
 /* === RESPONSIVE === */
 @media (max-width: 767px) {
+  .hero::after { inset: 16% var(--space-4) 10%; }
   .manifesto {
     margin-bottom: var(--space-6);
     max-width: 32ch;
@@ -117,7 +142,8 @@
   }
 
   .subtitleWrapper {
-    top: 20vh;
+    top: auto;
+    bottom: var(--space-8);
     right: var(--space-6);
     left: var(--space-6);
     text-align: left;
@@ -135,6 +161,6 @@
   }
 
   .scrollIndicator {
-    bottom: var(--space-6);
+    display: none;
   }
 }
