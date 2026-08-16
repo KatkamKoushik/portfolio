@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useMemo } from "react";
 import HeroScene from "./HeroScene/HeroScene";
 import ExperimentsScene from "./ExperimentsScene/ExperimentsScene";
 import { useVisualStore } from "@/state/visualStore";
@@ -14,26 +14,12 @@ import ErrorBoundary from "@/components/layout/ErrorBoundary";
  */
 export default function SceneContainer() {
   const qualityLevel = useVisualStore((s) => s.qualityLevel);
-  const [dpr, setDpr] = useState(1);
-
-  // Theatre.js studio is disabled in production
-  useEffect(() => {
-    // initTheatreStudio();
-  }, []);
-
-  useEffect(() => {
+  const dpr = useMemo(() => {
+    if (typeof window === "undefined") return 1;
     const deviceDpr = window.devicePixelRatio || 1;
-    switch (qualityLevel) {
-      case "low":
-        setDpr(Math.min(deviceDpr, 1));
-        break;
-      case "medium":
-        setDpr(Math.min(deviceDpr, 1.5));
-        break;
-      case "high":
-        setDpr(Math.min(deviceDpr, 2));
-        break;
-    }
+    if (qualityLevel === "low") return Math.min(deviceDpr, 1);
+    if (qualityLevel === "medium") return Math.min(deviceDpr, 1.5);
+    return Math.min(deviceDpr, 2);
   }, [qualityLevel]);
 
   return (

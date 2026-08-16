@@ -4,28 +4,31 @@ import React, { useEffect, useRef, useId, forwardRef } from "react";
 import { useTypographyStore } from "@/state/typographyStore";
 import { useVisualStore } from "@/state/visualStore";
 
+type LuminousTag = "h1" | "h2" | "h3" | "h4" | "p" | "span" | "div";
+
 interface LuminousTextProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
-  children: string;
+  as?: LuminousTag;
+  children: React.ReactNode;
 }
 
 const LuminousText = forwardRef<HTMLElement, LuminousTextProps>(
-  ({ as: Component = "h1", children, className, ...props }, forwardedRef) => {
+  ({ as: component = "h1", children, className, ...props }, forwardedRef) => {
     const localRef = useRef<HTMLElement>(null);
     const id = useId();
     const registerText = useTypographyStore((s) => s.registerText);
     const updateTextRect = useTypographyStore((s) => s.updateTextRect);
     const unregisterText = useTypographyStore((s) => s.unregisterText);
     const reducedMotion = useVisualStore((s) => s.reducedMotion);
+    const text = typeof children === "string" ? children : String(children ?? "");
 
     // Merge refs
-    const setRef = (node: HTMLElement) => {
-      // @ts-ignore - Handle mutable ref object vs function ref
+    const setRef = (node: HTMLElement | null) => {
       localRef.current = node;
       if (typeof forwardedRef === "function") {
         forwardedRef(node);
       } else if (forwardedRef) {
-        forwardedRef.current = node;
+        (forwardedRef as React.MutableRefObject<HTMLElement | null>).current =
+          node;
       }
     };
 
@@ -37,7 +40,7 @@ const LuminousText = forwardRef<HTMLElement, LuminousTextProps>(
     const style = window.getComputedStyle(el);
     registerText({
       id,
-      text: children,
+      text,
       rect: { x: 0, y: 0, width: 0, height: 0, top: 0, left: 0 },
       fontSize: parseFloat(style.fontSize),
       fontWeight: style.fontWeight,
@@ -47,11 +50,10 @@ const LuminousText = forwardRef<HTMLElement, LuminousTextProps>(
     });
     
     let rafId: number;
-    let lastTime = 0;
     
     // Throttle to 30fps to avoid excessive layout thrashing if needed, 
     // but rAF is usually fine. We'll just read rect on every frame.
-    const updateRect = (time: number) => {
+    const updateRect = () => {
       // Only measure every ~32ms (30fps) for performance, or every frame for smoothness?
       // Since Lenis scrolls smoothly, doing it every frame is best for perfectly tracking the mask.
       const rect = el.getBoundingClientRect();
@@ -85,12 +87,16 @@ const LuminousText = forwardRef<HTMLElement, LuminousTextProps>(
       cancelAnimationFrame(rafId);
       unregisterText(id);
     };
-  }, [id, children, registerText, updateTextRect, unregisterText, reducedMotion]);
+  }, [id, text, registerText, updateTextRect, unregisterText, reducedMotion]);
 
-  return (
-    <Component ref={setRef} className={className} {...props}>
-      {children}
-    </Component>
+  return React.createElement(
+    component,
+    {
+      ref: setRef as React.Ref<HTMLElement>,
+      className,
+      ...props,
+    },
+    children
   );
 });
 

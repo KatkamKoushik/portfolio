@@ -2,7 +2,7 @@
 
 import { useFrame, useThree, createPortal } from "@react-three/fiber";
 import { useFBO, OrthographicCamera, Text } from "@react-three/drei";
-import { useMemo, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { useTypographyStore } from "@/state/typographyStore";
 
@@ -11,7 +11,7 @@ interface TypographyMaskSceneProps {
 }
 
 export default function TypographyMaskScene({ onUpdateTexture }: TypographyMaskSceneProps) {
-  const { size, viewport } = useThree();
+  const { size } = useThree();
   const texts = useTypographyStore((s) => s.texts);
   
   // Create a separate scene for the mask

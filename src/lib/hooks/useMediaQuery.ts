@@ -1,25 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 /**
  * Responsive media query hook.
  */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
+  const getSnapshot = () =>
+    typeof window !== "undefined" ? window.matchMedia(query).matches : false;
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
+  const subscribe = (onStoreChange: () => void) => {
+    if (typeof window === "undefined") return () => {};
     const mq = window.matchMedia(query);
-    setMatches(mq.matches);
+    mq.addEventListener("change", onStoreChange);
+    return () => mq.removeEventListener("change", onStoreChange);
+  };
 
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, [query]);
-
-  return matches;
+  return useSyncExternalStore(subscribe, getSnapshot, () => false);
 }
 
 /* Preset breakpoints */

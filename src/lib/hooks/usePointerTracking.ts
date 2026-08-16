@@ -13,7 +13,7 @@ export function usePointerTracking() {
   const setIsTouchDevice = useInteractionStore((s) => s.setIsTouchDevice);
 
   const lastPosition = useRef<Vec2>({ x: 0, y: 0 });
-  const lastTime = useRef(performance.now());
+  const lastTime = useRef(0);
 
   const handlePointerMove = useCallback(
     (e: PointerEvent) => {
@@ -45,6 +45,7 @@ export function usePointerTracking() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    lastTime.current = performance.now();
 
     // Detect touch capability
     const isTouch =

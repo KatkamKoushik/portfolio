@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { useVisualStore } from "@/state/visualStore";
 import { useInteractionStore } from "@/state/interactionStore";
 import { useTypographyStore } from "@/state/typographyStore";
+import { PROJECTS } from "@/data/projects";
 
 import particleVertex from "@/shaders/particles/vertex.glsl";
 import particleFragment from "@/shaders/particles/fragment.glsl";
@@ -13,6 +14,11 @@ import particleFragment from "@/shaders/particles/fragment.glsl";
 interface HeroParticlesProps {
   count?: number;
   textMaskTexture?: THREE.Texture | null;
+}
+
+function pseudoRandom(seed: number) {
+  const x = Math.sin(seed * 12.9898) * 43758.5453123;
+  return x - Math.floor(x);
 }
 
 export default function HeroParticles({ count: overrideCount, textMaskTexture }: HeroParticlesProps) {
@@ -46,18 +52,25 @@ export default function HeroParticles({ count: overrideCount, textMaskTexture }:
     const ph = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
+      const rand1 = pseudoRandom(i * 11 + 1);
+      const rand2 = pseudoRandom(i * 11 + 2);
+      const rand3 = pseudoRandom(i * 11 + 3);
+      const rand4 = pseudoRandom(i * 11 + 4);
+      const rand5 = pseudoRandom(i * 11 + 5);
+      const rand6 = pseudoRandom(i * 11 + 6);
+
       // Distribute in a much larger sphere for massive overlapping bokeh
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = Math.pow(Math.random(), 0.3) * 12; // increased radius
+      const theta = rand1 * Math.PI * 2;
+      const phi = Math.acos(2 * rand2 - 1);
+      const r = Math.pow(rand3, 0.3) * 12; // increased radius
 
       off[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       off[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       off[i * 3 + 2] = (r * Math.cos(phi)) * 0.5 - 2.0; // push slightly back
 
-      sc[i] = 1.0 + Math.random() * 4.0; // larger scale variation
-      sp[i] = 0.1 + Math.random() * 0.3; // slower, calmer speed
-      ph[i] = Math.random() * Math.PI * 2;
+      sc[i] = 1.0 + rand4 * 4.0; // larger scale variation
+      sp[i] = 0.1 + rand5 * 0.3; // slower, calmer speed
+      ph[i] = rand6 * Math.PI * 2;
     }
 
     return { offsets: off, scales: sc, speeds: sp, phases: ph };
@@ -71,7 +84,10 @@ export default function HeroParticles({ count: overrideCount, textMaskTexture }:
       uScrollVelocity: { value: 0 },
       uPointer: { value: new THREE.Vector2(0, 0) },
       uPointerSpeed: { value: 0 },
-      uDPR: { value: Math.min(window.devicePixelRatio, 2) },
+      uDPR: {
+        value:
+          typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1,
+      },
       uProjectColor: { value: new THREE.Color("#ffffff") },
       uProjectMode: { value: 0 },
       uGlobalOpacity: { value: 1.0 },
@@ -110,10 +126,6 @@ export default function HeroParticles({ count: overrideCount, textMaskTexture }:
   const smoothVelocity = useRef(0);
   const smoothTheme = useRef(0);
   const smoothProjectMode = useRef(0);
-
-  // We need to read projects here or outside
-  const { PROJECTS } = require("@/data/projects");
-  const { useProjectStore } = require("@/state/projectStore");
 
   useFrame((state) => {
     if (!materialRef.current) return;

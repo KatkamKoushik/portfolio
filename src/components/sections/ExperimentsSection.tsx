@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, EASE, DURATION } from "@/animation/gsap/config";
+import { gsap, EASE, DURATION } from "@/animation/gsap/config";
 import styles from "./ExperimentsSection.module.css";
 
 export default function ExperimentsSection() {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Physics, CuboidCollider } from "@react-three/rapier";
 import { useVisualStore } from "@/state/visualStore";

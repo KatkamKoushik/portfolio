@@ -9,7 +9,10 @@ import styles from "./Header.module.css";
 
 const NAV_ITEMS = [
   { label: "Work", href: "#work" },
+  { label: "Experiments", href: "#experiments" },
   { label: "About", href: "#about" },
+  { label: "Capabilities", href: "#capabilities" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 
